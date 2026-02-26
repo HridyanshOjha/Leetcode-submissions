@@ -1,0 +1,37 @@
+ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    ListNode *i = list1;
+    ListNode *j = list2;
+    if(i==nullptr & j ==nullptr) return list1;
+    
+    else if(i==nullptr) return list2;
+    if(j ==nullptr) return list1;
+
+    ListNode *dh = new ListNode(-1);
+    ListNode *curr = dh;
+    while (i != nullptr || j != nullptr)
+    {
+        if (i->val <= j->val)
+        {
+            curr->next = i;
+            curr = curr->next;
+            i = i->next;
+        }
+        else
+        {
+            curr->next = j;
+            curr = curr->next;
+            j = j->next;
+        }
+        if (i == nullptr)
+        {
+            curr->next = j;
+            break;
+        }
+        if (j == nullptr)
+        {
+            curr->next = i;
+            break;
+        }
+    }
+    return dh->next;
+    }
