@@ -1,0 +1,44 @@
+
+ListNode* rev(ListNode* head){
+    ListNode* prev=nullptr;
+    ListNode* curr=head;
+    while(curr!=nullptr){
+        ListNode* temp=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=temp;
+    }   
+    return prev;
+}
+
+ 
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        if(head==NULL || head->next==NULL || left==right){
+            return head;
+        }
+        ListNode* dummy = new ListNode(-1);
+        dummy->next = head;
+        ListNode* prev = dummy;
+        
+          for(int i = 1; i < left; i++){
+            prev = prev->next;
+        }
+         ListNode* start = prev->next;
+        ListNode* end = start;
+     
+         for(int i = left; i < right; i++){
+            end = end->next;
+        }
+
+        ListNode* last = end->next;
+        end->next = nullptr;
+         ListNode* newHead = rev(start);
+         prev->next = newHead;
+         while(newHead->next!=  NULL){
+            newHead = newHead->next;
+        }
+        newHead->next = last;
+            
+        return dummy->next;
+    }
+ 
