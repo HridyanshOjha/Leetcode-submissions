@@ -1,0 +1,18 @@
+ int reverse(int y) {
+        
+        long long rev=0;
+        long long x=y;
+        if(x<0){
+            x=-x;
+        }
+        while(x!=0){
+            long long rem=x%10;
+            rev=rev*10+rem;
+            x=x/10;
+        }
+        int a=pow(-2,31);
+        int b=pow(2,31)-1;
+        if(rev<a || rev>b){return 0;}
+        else if(y<0)return -rev;
+        else return rev;
+    }
