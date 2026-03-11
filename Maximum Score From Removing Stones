@@ -1,0 +1,30 @@
+ int maximumScore(int a, int b, int c) {
+        priority_queue<int> pq;
+        int ans=0;
+        pq.push(a);
+        pq.push(b);
+        pq.push(c);
+        bool flag=true;
+        while(flag){
+            int v1=pq.top();
+            pq.pop();
+            int v2=pq.top();
+            pq.pop();
+            if(v1==0 || v2==0){
+                break;
+                flag=false;
+            }
+            // if(v1-1!=0){
+                pq.push(v1-1);
+            // }
+            // if(v2-1!=0){
+                pq.push(v2-1);
+            // }
+            ans+=1;
+            // if(v1-1==0 && v2-1==0){
+            //     pq.push(5);
+            //     break;
+            // }
+        }
+        return ans;
+    }
