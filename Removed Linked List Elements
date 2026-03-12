@@ -1,0 +1,31 @@
+ListNode* removeElements(ListNode* head, int val) {
+        if (head == NULL)
+            return head;
+        if (head->next == NULL) {
+            if (head->val == val)
+                return NULL;
+            else
+                return head;
+        }
+        ListNode* nh = new ListNode(-1);
+        ListNode* p = nh;
+        p->next = NULL;
+        ListNode* c = head;
+        while (c!= NULL) {
+            if (c->val == val) {
+                c = c->next;
+            } else {
+                p->next = c;
+                p = c;
+                c = c->next;
+            }
+        }
+        if (p->next = NULL) {
+
+            if (c->val != val) {
+                p->next = c;
+                // p->next = NULL;
+            } 
+        }
+        return nh->next;
+    }
