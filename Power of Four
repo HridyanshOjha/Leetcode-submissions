@@ -1,0 +1,13 @@
+ bool isPowerOfFour(int n) {
+        if(n==1){
+            return true;
+        }
+        long long int x=4;
+        while(x<=n){
+            if(x==n){
+                return true;
+            }
+                x=x*4;
+        }
+        return false;
+    }
