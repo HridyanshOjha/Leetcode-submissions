@@ -1,0 +1,15 @@
+vector<vector<int>> subsets(vector<int>& nums) {
+        int s=nums.size();
+        vector<vector<int>> ans;
+        int n=pow(2,s)-1;
+        for(int i=0;i<=n;i++){
+            vector<int> ss;
+            for(int j=0;j<s;j++){
+                if(i & (1<<j)){
+                    ss.push_back(nums[j]);
+                }
+            }
+            ans.push_back(ss);
+        }
+        return ans;
+    }
