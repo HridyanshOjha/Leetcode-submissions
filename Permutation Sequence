@@ -1,0 +1,60 @@
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        vector<int> nums;
+        int com=1;
+        for (int i = 1; i <= n;i++) {
+            nums.push_back(i);
+            com=com*i;
+        }
+        k = (k - 1) % com + 1;
+        vector<vector<int>> ans = permute(nums,k);
+        string str = "";
+        for (auto it : ans) {
+            for (auto i : it) {
+                string s=to_string(i);
+                str += s;
+            }
+        }
+        return str;
+    }
+
+    void solve(vector<int>& temp, vector<int>& nums, vector<vector<int>>& ans,
+               vector<int> &freq, int k, int& cnt) {
+        if (!ans.empty()) return;
+        int siz=nums.size();
+        int ts=temp.size();
+        if (ts== siz) {
+            cnt++;
+            if (cnt == k) {
+
+                ans.push_back(temp);
+            }
+            return;
+        }
+        for (int i = 0; i < siz; i++) {
+            if (!freq[i]) {
+                temp.push_back(nums[i]);
+                freq[i] = 1;
+                solve(temp, nums, ans, freq, k, cnt);
+                freq[i] = 0;
+                temp.pop_back();
+            }
+        }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums,int k) {
+        vector<vector<int>> ans;
+        vector<int> temp;
+        int siz=nums.size();
+        vector<int> freq ;
+        for (int i = 0; i < siz; i++)
+        {
+            freq.push_back(0);
+        }
+        int  cnt = 0;
+        // k=k%n;
+        solve(temp, nums, ans, freq, k, cnt);
+        return ans;
+    }
+};
