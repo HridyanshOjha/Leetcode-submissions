@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& arr) {
+        reverse(arr.begin(), arr.end());
+        int c = 1;
+        for (int i = 0; i < arr.size(); i++) {
+            int s = arr[i] + c;
+            if (s == 10) {
+                arr[i] = 0;
+                c = 1;
+            } else {
+                arr[i] = s;
+                c = 0;
+                break;
+            }
+        }
+        if (c == 1) {
+            arr.push_back(1);
+        }
+
+        reverse(arr.begin(), arr.end());
+        return arr;
+    }
+};
