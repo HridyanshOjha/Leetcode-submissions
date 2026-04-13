@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int countOdds(int low, int high) {
+        int x = high - low + 1; // x is my total numbers between high and low
+        if (x % 2 == 0) {
+            return x / 2;
+        } else {
+
+            if (low % 2 == 0) {
+                return x / 2;
+            }
+        }
+        return x / 2 + 1;
+    }
+};
