@@ -1,0 +1,44 @@
+class Solution {
+public:
+    long long mod = 1000000007;
+
+    int specialTriplets(vector<int>& nums) {
+        int n = nums.size();
+
+        unordered_map<int, long long> mapLeft;
+        unordered_map<int, long long> mapRight;
+
+        long long cnt = 0;
+
+        for (int i = 2; i < n; i++) {
+            mapRight[nums[i]] = mapRight[nums[i]] + 1;
+        }
+
+        mapLeft[nums[0]] = 1;
+        int i = 1;
+
+        while (i < n - 1) {
+
+            long long req = 2LL * nums[i];
+
+            if (mapLeft.count(req) && mapRight.count(req)) {
+                long long n1 = mapLeft[req];
+                long long n2 = mapRight[req];
+                cnt = (cnt + ((n1 % mod) * (n2 % mod)) % mod) % mod;
+            }
+
+            mapLeft[nums[i]] = mapLeft[nums[i]] + 1;
+
+            if (i + 1 < n) {
+                mapRight[nums[i + 1]] = mapRight[nums[i + 1]] - 1;
+                if (mapRight[nums[i + 1]] == 0) {
+                    mapRight.erase(nums[i + 1]);
+                }
+            }
+
+            i++;
+        }
+
+        return (int)cnt;
+    }
+};
