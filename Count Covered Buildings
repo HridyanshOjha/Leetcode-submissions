@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int countCoveredBuildings(int n, vector<vector<int>>& buildings) {
+         unordered_map<int, set<int>> row_se_col;
+    unordered_map<int, set<int>> col_se_row;
+
+    for (auto &b : buildings) {
+        int x = b[0], y = b[1];
+        row_se_col[x].insert(y);
+        col_se_row[y].insert(x);
+    }
+
+    int cnt = 0;
+
+    for (auto &b : buildings) {
+        int x = b[0], y = b[1];
+
+        auto &cols = row_se_col[x];
+        auto it_left = cols.lower_bound(y);
+        int left = -1;
+        if (it_left != cols.begin()) {
+            it_left--;
+            left = *it_left;
+        }
+
+        auto it_right = cols.upper_bound(y);
+        int right = -1;
+        if (it_right != cols.end()) right = *it_right;
+
+        auto &rows = col_se_row[y];
+        auto it_upar = rows.lower_bound(x);
+        int up = -1;
+        if (it_upar != rows.begin()) {
+            it_upar--;
+            up = *it_upar;
+        }
+
+        auto it_niche = rows.upper_bound(x);
+        int down = -1;
+        if (it_niche != rows.end()) down = *it_niche;
+
+        if (left != -1 && right != -1 && up != -1 && down != -1) cnt++;
+    }
+
+    return cnt;
+    }
+};
