@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int countPartitions(vector<int>& nums, int k) {
+        int mod = 1000000007;
+         int n = nums.size();
+        vector<long long> no_of_vp(n + 1), prefix_sum_of_dp(n + 1);
+
+        no_of_vp[0] = 1;
+        prefix_sum_of_dp[0] = 1;
+
+        deque<int> maxi_q, mini_q;
+        int left = 0;
+
+        for (int right = 0; right < n; ++right) {
+
+            while (!maxi_q.empty() && nums[maxi_q.back()] <= nums[right])
+                maxi_q.pop_back();
+            maxi_q.push_back(right);
+
+            while (!mini_q.empty() && nums[mini_q.back()] >= nums[right])
+                mini_q.pop_back();
+            mini_q.push_back(right);
+
+            while (!maxi_q.empty() && !mini_q.empty() &&
+                   nums[maxi_q.front()] - nums[mini_q.front()] > k) {
+                if (maxi_q.front() == left) maxi_q.pop_front();
+                if (mini_q.front() == left) mini_q.pop_front();
+                ++left;
+            }
+
+            long long ways = prefix_sum_of_dp[right];
+            if (left > 0)
+                ways = (ways - prefix_sum_of_dp[left - 1] + mod) % mod;
+
+            no_of_vp[right + 1] = ways;
+            prefix_sum_of_dp[right + 1] =
+                (prefix_sum_of_dp[right] + no_of_vp[right + 1]) % mod;
+        }
+
+        return (int)no_of_vp[n];
+    }
+};
